@@ -1,1 +1,3 @@
-# PurpleNew是一款新闻应用
+# android性能优化整理
+
+
