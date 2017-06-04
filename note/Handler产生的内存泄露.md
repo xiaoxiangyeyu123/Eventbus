@@ -59,6 +59,44 @@ In Android, Handler classes should be static or leaks might occur.
      mHandler.removeMessages(MESSAGE_1);  
      mHandler.removeCallbacks(mRunnable);  
     }     
+  
+     
+     
+使用Handler.Callback接口并且重写Handler
+public class WeakRefHandler extends Handler {
+    private WeakReference<Callback> mWeakReference;
 
+    public WeakRefHandler(Callback callback) {
+        mWeakReference = new WeakReference<Handler.Callback>(callback);
+    }
+
+    public WeakRefHandler(Callback callback, Looper looper) {
+        super(looper);
+        mWeakReference = new WeakReference<Handler.Callback>(callback);
+    }
+
+    @Override
+    public void handleMessage(Message msg) {
+        if (mWeakReference != null && mWeakReference.get() != null) {
+            Callback callback = mWeakReference.get();
+            callback.handleMessage(msg);
+        }
+     }
+    }
+由于是弱引用，当该类需要被回收时，就可以直接被回收掉。 
+WeakRefHandler的使用时如下：  
+
+    private Handler.Callback mCallback = new Handler.Callback() {
+         @Override
+        public boolean handleMessage(Message msg) {
+            switch(msg.what){
+            }
+            return true;
+        }
+    };  
+    private Handler mHandler = new WeakRefHandler(mCallback);
+
+
+  
 
 参考文章 [http://www.jianshu.com/p/cb9b4b71a820](http://www.jianshu.com/p/cb9b4b71a820)
