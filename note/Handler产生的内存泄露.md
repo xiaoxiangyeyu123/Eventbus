@@ -1,4 +1,6 @@
-# Handler产生的内存泄露
+# Handler产生的内存泄露   
+作者：潇湘夜雨 QQ879689064  github:[https://github.com/xiaoxiangyeyuHeaven](https://github.com/xiaoxiangyeyuHeaven)
+
 Handler是造成内存泄露的一个重要原因，Handler引用Activity会存在内存泄露。  
 
     public class HandlerActivity extends Activity {  
