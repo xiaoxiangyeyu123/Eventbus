@@ -1,4 +1,4 @@
-package eventbus.yeyu.com.eventbus;
+package eventbus.yeyu.com.library;
 
 import org.junit.Test;
 
