@@ -37,5 +37,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        Eventbus.getDefault().unregister(this);
     }
 }
